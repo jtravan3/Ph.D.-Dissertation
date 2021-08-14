@@ -1,0 +1,6 @@
+\section{Vector Reputation Management (VRM)}
+\label{rep:vrm}
+
+In Chapter \ref{chap:prediction_based_scheduler} we presented the transaction categorization graph (see Figure \ref{pbs:cat_graph}) that plots transactions on a graph based on their commit rate and efficiency rate. In Chapter \ref{chap:multi_level_security} we extended that graph by adding a third dimension of security classification to the graph (see Definition \ref{mls:transaction_categories}) causing a three-dimensional graphing of all transactional attributes (proposed in Section \ref{rep:remaining_work} in Figure \ref{graph:mls_cat_graph}). While the added dimension adapts the prediction-based solution to multi-level secure databases there is still the limitation that two transactions of the same categorization can be in conflict. In this situation, the prediction-based solution reverts to existing 2PL with no added benefit.
+
+By transitioning to a solution that contains a continuous spectrum of categorization, we can avoid the situation where two transactions of the same categorization cause a conflict. This will then allow the existing rules of the prediction-based scheduler (see Tables \ref{tbl:read_lock_compatibility} \& \ref{tbl:write_lock_compatibility}) to execute and eliminate situations in which a decline action (see Definition \ref{legal_scheduler}) would normally be executed.

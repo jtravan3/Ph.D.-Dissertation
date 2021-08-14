@@ -1,0 +1,281 @@
+\documentclass{styles/uscthesis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Options include: [forbinding], which produces 
+%%% an alternative title page and an appropriate
+%%% binding margin,  [honors] for Honors College theses,
+%%% and [durt] for undergraduate thesis submitted as part
+%%% part of the distinction in mathematics program.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  LaTeX Preamble
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{common/mls_plot_data}
+\input{common/plot_data}
+\usepackage[style=styles/uscauthoryear]{biblatex}
+\usepackage{blindtext, graphicx, hyperref, color, caption}
+\usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hhline}
+
+%%%%%%% FOR EDITING ONLY. REMOVE WHEN DONE %%%%%%%%%
+%\openup 2em
+%%%%%%%%%%%%%%%%%%%
+
+\usetikzlibrary{calc,chains,arrows,shapes,arrows,backgrounds,positioning}
+%
+\usepackage[utf8]{inputenc}
+\usepackage{array, booktabs}
+\usepackage{colortbl}
+\usepackage{csquotes}
+\pgfplotsset{compat=1.15}
+
+\newcommand{\foo}{\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}}
+%
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}[definition]
+
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+
+\tikzset{
+block/.style={
+  rectangle,
+  draw,
+  text width=4.5em,
+  text centered,
+  rounded corners,
+  minimum height=3em},
+line/.style={draw, -latex'},
+edge/.style={draw},
+webservice/.style={
+  cloud,
+  draw,
+  cloud puffs=10,
+  cloud puff arc = 120,
+  aspect = 2,
+  inner ysep =.5em}
+}
+
+\definecolor{bblue}{HTML}{4F81BD}
+\definecolor{rred}{HTML}{C0504D}
+\definecolor{ggreen}{HTML}{9BBB59}
+\definecolor{ppurple}{HTML}{9F4C7C}
+\definecolor{column_color}{HTML}{EFEFEF}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% You should include above
+%% any LaTeX packages that you need.  Most packages should work 
+%% with this documentclass.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliography{references/references}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The lines above specify a BibTeX style which controls 
+%% the appearance of the bibliography and how citations to
+%% the bibliography within the text will work.  It is based on the biblatex.sty
+%% package and provides a Chicago style, as preferred by the Graduate School.
+%% There are other acceptable styles.  Indeed, different academic disciplines
+%% have different styles.
+%% 
+%% The line  \bibliography{references} will cause LaTeX is search for a file
+%% called references.bib.  This file could be named differently.  For example
+%% \bibliography{henry} would provoke a search for henry.bib.  The
+%% file reference.bib (or henry.bib) is one you will have to produce.  It is
+%% a BibTeX database of references you use.
+%% 
+%% There are a number of alternate ways to address your bibliographic needs.
+%% See the documentation uscthesisdoc.pdf  for a discussion of the different options.
+%%
+%%
+%% 
+%%In any case, this  is a good spot to ask LaTeX to load what it needs to handle
+%% literature citations and to layout the bibliography. 
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem*{thmun}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{ex}[thm]{Example}
+\theoremstyle{plain}
+
+\input{common/definition_commands}
+\input{common/categorization_graphs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  These are just a few sample lines. Put here any 
+%%  commands of your own devising that you want to use.
+%%  If these examples are no use to you, omit them.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%             The Front Matter
+%%  The section below deals with the material that comes 
+%%  before the actual content of the document: The title 
+%%  page, abstract, acknowledgments,etc.
+%%
+%%  Some of it is required.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Correct Web Service Transactions in the Presence of Malicious and Misbehaving Transactions}
+
+\author{John Thomas}{Ravan III}    %% First Name then 
+                                 %% Last Name
+
+\degreedate{2021}                      %% The year of graduation
+
+%\month{December}                 %% Only for the honors option
+                                 %% where it is REQUIRED
+
+\otherdegrees{
+Bachelor of Science\\
+The Citadel, The Military College of South Carolina 2011\\ [\baselineskip]
+Master of Science\\
+The Citadel Graduate College 2014\\ %% The \\ on this line is 
+}                                %% ESSENTIAL!
+
+\degreename{Doctor of Philosophy}     %% The Graduate School provides 
+                                 %% a list of official degrees.
+\field{Computer Science}              %% Fields also provided by the 
+                                 %% Graduate School.
+\college{College of Engineering and Computing}  %%As listed by Grad School
+\advisor[]{Dr.}{Csilla Farkas}{Advisor} %%% Be sure the 
+\readera[]{Dr.}{Shankar M. Banik}{Co-Advisor}     %%% third field is 
+\readerb[]{Dr.}{John R. Rose}{CSE}         %%% the one used in 
+\readerc[]{Dr.}{Lannan Luo}{CSE} %%% your department.
+\readerd[]{Dr.}{Jorge Crichigno}{IIT}               %%% Only use as many as
+%%% If you have just two readers, for example, leave out \readerc and
+%%% \readerd
+%%%
+%%% For Honors College theses use \reader{}{}   NO third field.
+%%% The commands \otherdegrees, \degree, \field, \college, \readera, etc.
+%%% are not used under the honors option.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\dean[]{Cheryl Addy}{Dean of The Graduate School}   %% The Dean of the Graduate School
+                   %% BE SURE TO CHECK THE NAME OF THE
+                   %%PERSON CURRENTLY HOLDING THIS POSITION	
+		   %% and the correct title.		             		
+                     %% For Honors College theses use
+                     %% \schcsigner{}{}.  For example,
+                     %% \schcsigner{Dr.}{Davis Baird}
+
+\copyrightpage       %% This is optional. It makes a 
+                     %% copyright page that will appear 
+                     %% immediately after the title page.
+
+\abstract{chapters/abstract}  %% This calls the file herkimer.tex but 
+                     %% but you might replace herkimer by 
+                     %% anything you like, for example by 
+                     %% abstract. Note, the Graduate School
+                     %% REQUIRES that PhD dissertations have 
+                     %% abstracts.
+                     %%
+                     %% For Honors College theses use
+                     %% \honorsabstract{}
+
+%\summary{precis}     %% This command calls  precis.tex
+                     %% It is only available with the honors
+                     %% option and it is REQUIRED for Honors
+                     %% theses. 
+
+\acknowledgments{chapters/thanks} %% This calls the file thanks.tex 
+%% This is optional       %% where you have put your 
+                          %%acknowledgments.
+
+% \dedication{chapters/dedication}   %% Calls dedication.tex
+%%% Also optional
+
+% \preface{chapters/forward}    %% Calls forward.tex.  Optional.
+
+\makeLoT               %% Issue this command if your work has 
+                       %% four or more tables.  A list of tables 
+                       %% will be produced automatically.
+
+\makeLoF               %% works the same way but for figures.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Finally, here is the meat.  The idea is to compose a 
+%%  .tex file for each section of your thesis or dissertation.  
+%%  Then use LaTeX's \include command to put them all together.  
+%%  Doing it this way makes it easier to change the order of 
+%%  exposition as your writing is in progress.  Also it
+%%  makes it easy to print out just one section. The \include
+%%  command always starts a new page. So every section would 
+%%  start on a new page.  If you would like for sections just
+%%  to continue, after the appropriate vertical space, on the
+%%  current page, then use the \input command instead of the 
+%%  \include command.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\include{chapters/1__Introduction/main}    %% Calls Introduction.tex
+                          %% Honors theses are required to 
+                          %% have an Introduction.  For
+                          %% Honors theses, the file 
+                          %% Introduction.tex should begin
+                          %%
+                          %% \chapter*{Introduction}
+                          %% followed by the text of the 
+                          %% introduction.
+                          
+\include{chapters/2__PBS_Scheduler/main} %% Chapter 2
+\include{chapters/3__Multi_Level_Security/main} %% Chapter 3
+\include{chapters/4__Dynamic_Reputation/main} %% Chapter 4
+\include{chapters/5__Dissertation_Outline/main} %% Chapter 5
+
+\include{chapters/6__Conclusion/main}     %% Honors theses are required to 
+                          %% have an unnumbered chapter
+                          %% for conclusions.  The file
+                          %% Conclusion.tex should begin
+                          %%   
+                          %% \chapter*{Conclusion}
+                          %% followed by the appropriate
+                          %% text.
+
+\printbibliography %%  This is the command to use to
+			       %%  insert the bibliography if you are using
+                           %% the biblatex.sty package.  See the 
+                           %% uscthesisdoc.pdf documentation for
+                           %% for alternative bibliographic systems.     
+
+\Appendix                 %% Use this command if you have one 
+                          %% appendix. Use \Appendices if you 
+                          %% have more than one.
+	
+\input{chapters/appendix}         %% Calls toolong.tex which contains
+                          %% an appendix. After issuing the 
+                        %% command \Appendix or \Appendices
+                        %% you must use \input not \include
+                        %% to load the first appendix.
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

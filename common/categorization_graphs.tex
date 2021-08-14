@@ -1,0 +1,149 @@
+\newcommand{\createCategorizationGraph}[2]{
+    % \begin{table}[h]
+    % \captionsetup{justification=centering}
+    % \centering
+    % \begin{tabular}{l|c|c|}
+    % \cline{2-3}
+    %                                           & \multicolumn{1}{l|}{\textbf{Commit Rate ($C_{r}$)}} & \multicolumn{1}{l|}{\textbf{Efficiency Rate ($E_{r}$)}} \\ \hline
+    % \multicolumn{1}{|l|}{\textbf{HCHE}}  & $>$ 50\%                          & $>$ 50\%                                \\ \hline
+    % \multicolumn{1}{|l|}{\textbf{HCLE}}  & $>$ 50\%                       & $\le$ 50\%                               \\ \hline
+    % \multicolumn{1}{|l|}{\textbf{LCHE}} & $\le$ 50\%                          & $>$ 50\%                                  \\ \hline
+    % \multicolumn{1}{|l|}{\textbf{LCLE}} & $\le$ 50\%                       & $\le$ 50\%                                 \\ \hline
+    % %\multicolumn{1}{|l|}{\textbf{No Trnd.}} &    \multicolumn{2}{c|}{See equation below}                                    \\ \hline
+    % \end{tabular}
+    % \caption{Transaction Categorization Bounds} % title of the Figure
+    % \label{tbl:default_tmetrics} % label to refer figure in text
+    % \end{table}
+    
+    \begin{figure}
+    \captionsetup{justification=centering}
+    \centering % used for centering Figure
+    \begin{tikzpicture}
+    \begin{axis}[
+        title={Transaction Categorization Bounds},
+        xlabel={Efficiency Rate (by percentage)},
+        ylabel={Commit Rate (by percentage)},
+        xmin=0, xmax=100,
+        ymin=0, ymax=100,
+        xtick={0,25,50,75,100},
+        ytick={0,25,50,75,100},
+        legend style={at={(0.03,0.5)},anchor=west},
+        ymajorgrids=true,
+        grid style=dashed,
+    ]
+    
+    \draw[-] (0,50) -- (100,50);
+    \draw[-] (50,0) -- (50,100);
+    \addplot[
+        only marks,
+        color=red,
+        mark=o,
+        ] table [x=x, y=y, col sep=comma] {hcle_plot_data.csv};
+    \addplot[
+        only marks,
+        color=red,
+        mark=diamond,
+        ] table [x=x, y=y, col sep=comma] {lcle_plot_data.csv};
+    \addplot[
+        only marks,
+        color=red,
+        mark=triangle,
+        ] table [x=x, y=y, col sep=comma] {lche_plot_data.csv};
+    \addplot[
+        only marks,
+        color=red,
+        mark=square,
+        ] table [x=x, y=y, col sep=comma] {hche_plot_data.csv};
+    
+    \legend{HCLE, LCLE, LCHE, HCHE}
+     
+    \end{axis}
+    \end{tikzpicture}
+    \caption{#2}
+    \label{#1}
+    \end{figure}
+}
+
+\newcommand{\createMLSCategorizationGraph}[2]{
+    \begin{figure}
+    \captionsetup{justification=centering}
+    \centering % used for centering Figure
+    \begin{tikzpicture}
+    \begin{axis}[
+        title={MLS Transaction Categorization Bounds},
+        xlabel={Efficiency Rate},
+        ylabel={Commit Rate},
+        zlabel={Security (High/Low)},
+        xmin=0, xmax=100,
+        ymin=0, ymax=100,
+        zmin=0, zmax=100,
+        xtick={25,50,75,100},
+        ytick={25,50,75,100},
+        ztick={0,25,50,75,100},
+        legend style={at={(1.39,0.68)},anchor=east},
+        ymajorgrids=true,
+        zmajorgrids=true,
+        xmajorgrids=true,
+        grid style=dashed,
+    ]
+    
+    \draw[-] (0,50,50) -- (100,50,50);
+    \draw[-] (50,0,50) -- (50,100,50);
+    \draw[-] (0,0,50) -- (0,50,50);
+    \draw[-] (0,0,50) -- (50,0,50);
+    \draw[-] (0,100,50) -- (0,50,50);
+    \draw[-] (0,100,50) -- (50,100,50);
+    \draw[-] (100,0,50) -- (50,0,50);
+    \draw[-] (100,0,50) -- (100,50,50);
+    \draw[-] (100,100,50) -- (100,50,50);
+    \draw[-] (100,100,50) -- (50,100,50);
+    
+    \addplot3+[
+        only marks,
+        color=blue,
+        mark=o,
+        ] table [x=x, y=y, z=z, col sep=comma] {hcle_h_plot_data.csv};
+    \addplot3+[
+        only marks,
+        color=blue,
+        mark=diamond,
+        ] table [x=x, y=y, z=z, col sep=comma] {lcle_h_plot_data.csv};
+    \addplot3+[
+        only marks,
+        color=blue,
+        mark=triangle,
+        ] table [x=x, y=y, z=z, col sep=comma] {lche_h_plot_data.csv};
+    \addplot3+[
+        only marks,
+        color=blue,
+        mark=square,
+        ] table [x=x, y=y, z=z, col sep=comma] {hche_h_plot_data.csv};
+    \addplot3+[
+        only marks,
+        color=red,
+        mark=o,
+        ] table [x=x, y=y, z=z, col sep=comma] {hcle_l_plot_data.csv};
+    \addplot3+[
+        only marks,
+        color=red,
+        mark=diamond,
+        ] table [x=x, y=y, z=z, col sep=comma] {lcle_l_plot_data.csv};
+    \addplot3+[
+        only marks,
+        color=red,
+        mark=triangle,
+        ] table [x=x, y=y, z=z, col sep=comma] {lche_l_plot_data.csv};
+    \addplot3+[
+        only marks,
+        color=red,
+        mark=square,
+        ] table [x=x, y=y, z=z, col sep=comma] {hche_l_plot_data.csv};
+    
+    \legend{$HCLE_H$, $LCLE_H$, $LCHE_H$, $HCHE_H$, $HCLE_L$, $LCLE_L$, $LCHE_L$, $HCHE_L$}
+     
+    \end{axis}
+    \end{tikzpicture}
+    \caption{#2}
+    \label{#1}
+    \end{figure}
+}

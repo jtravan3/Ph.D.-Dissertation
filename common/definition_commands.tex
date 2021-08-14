@@ -1,0 +1,23 @@
+\newcommand{\defCommitRate}[1]{
+    \begin{definition}
+    \label{#1}
+     (Commit Rate) - the commit rate of a transaction $T_{i}$, denoted as  $C_{r}(T_{i})$, is calculated by the given formula:
+     
+     \[\textrm{$\abs{c_{i}}$} = \textrm{\# of executions of $T_{i}$ ending with a COMMIT result}\]
+     \[\textrm{$\abs{a_{i}}$} = \textrm{\# of executions of $T_{i}$ ending with a ABORT result}\]
+     \[\textrm{$C_{r}(T_{i})$} =\frac{\textrm{$\abs{c_{i}}$}}{\textrm{$\abs{c_{i} + a_{i}}$}}\]
+     
+     Once this ratio is calculated, it is compared to the overall ratio of commit to abort executions for all transactions.
+     
+    \end{definition}
+}
+
+\newcommand{\defEfficiencyRate}[1]{
+    \begin{definition}
+    \label{#1}
+     (Efficiency Rate) - the efficiency rate of a transaction $T_{i}$, denoted as  $E_{r}(T_{i})$, is based on how its execution time compares to all transactions executed within the execution environment. The efficiency rate is calculated based on the given formula:
+     
+    \[\textrm{$E_{r}(T_{i})$} =\frac{\textrm{$AVG(AVG(T_{1}),...,AVG(T_{n}))$}}{\textrm{$AVG(T_{i})$}}\]
+     
+    \end{definition}
+}

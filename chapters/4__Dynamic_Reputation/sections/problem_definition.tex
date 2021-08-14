@@ -1,0 +1,27 @@
+\section{Problem Definition}
+\label{rep:problem_definition}
+
+In Chapter \ref{chap:prediction_based_scheduler} we presented the prediction-based solution which allows for transactions to be elevated or demoted based on their categorization into four main categories established by two attributes; commit rate and efficiency rate. In Chapter \ref{chap:multi_level_security} we extended that solution to a categorization structure that included security classification in order to extend the prediction-based solution to multi-level secure databases. In both of the previous chapters the categorization of the transaction is assumed. In this chapter, we aim to identify the problem of identifying a transaction and proposing a vector reputation model.
+
+\subsection{Use Case Scenario}
+\label{rep:use_case_scenario}
+
+Previously in Sections \ref{subsec:use_case} we discuss a use-case scenario of an e-commerce system with concurrent overlapping transactions and the defense for the prediction-based scheduler. In that scenario Table \ref{tbl:trans_metrics} is referenced in that it would provide perspective into the elevation and demotion of the transaction so that a conflict would not occur. Table \ref{tbl:rep_trans_metrics} is a copy of Table \ref{tbl:trans_metrics} for reference.
+
+\begin{table}[h]
+\captionsetup{justification=centering}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multicolumn{4}{|c|}{\cellcolor[HTML]{EFEFEF}\textbf{Transaction Metrics}}                                                   \\ \hline
+\textbf{Transactions} & \textbf{Commit Rate} & \textbf{\# of Trans.} & {\color[HTML]{000000} \textbf{Eff. Rate}} \\ \hline
+$T_{DeleteOrderByUserID}$         & 98\%                  & 200                         & 98\%                                          \\ \hline
+$T_{GetOrderByUserID}$          & 97\%                     & 520                           & 99\%                                              \\ \hline
+\end{tabular}
+
+\caption{Transaction Metrics} % title of the Figure
+\label{tbl:rep_trans_metrics} % label to refer figure in text
+
+\end{table}
+
+What we see with the commit rate and efficiency rate of the two transactions that are conflicting is that their metrics are so similiar that they would be categorized into the same category of $HCHE$. When two transactions of the same category are conflicting (as defined in Definition \ref{conflict_ops}) then the system will default to 2PL and will not leverage the prediction-based system of categories. This is the problem that we will address with vector reputation management (VRM).

@@ -1,0 +1,18 @@
+\section{Remaining Work}
+\label{mls:remaining_work}
+
+In this section we discuss the proposed work for implementing a security classification within the prediction-based scheduler (outlined in Chapter \ref{chap:prediction_based_scheduler}) that would address the issues found specifically in MLS databases. This section contains the proposal itself. The background information, problem definition, and existing research for the problem is outlined in Chapter \ref{chap:multi_level_security}.
+
+Within the prediction-based solution, there are currently two factors that allow for a two-dimensional categorization among transactions. Those two factors are high and low commit probability and efficiency rate (see Definitions \ref{cat_bounds} \& \ref{transaction_categories} in Chapter \ref{chap:prediction_based_scheduler}). This allows for the formation of a total of four categories that a transaction can be placed in. Within these categories, there is a dominance structure that causes transactions to be prioritized depending on their categorization (outlined in Definition \ref{cat_dominance}). With all of these components in place, we have a foundation for efficient transaction categorization within MLS databases.
+
+Our proposal, is to transform the existing two-dimensional categorization within the existing prediction-based solution to a three-dimensional categorization that includes security classification. This will involve an update dominance structure to ensure the absence of covert channels and also prevent starvation of higher security transactions within the system. The solution would allow for a better decision making model for which transactions are aborted and rescheduled. The three-dimensional categorization would take security classification into account, but it would not allow the security classification to be the only dictating factor. Extending the prediction-based solution would allow the efficiency and commit rate factors to be included within the decision process. Figure \ref{graph:cat_graph_copy_from_pbs_chap} is a representation of Figure \ref{graph:cat_graph} in Chapter \ref{chap:prediction_based_scheduler} showing the two dimensional structure that the prediction-based solution currently uses.
+
+\createCategorizationGraph{graph:cat_graph_copy_from_pbs_chap}{PBS Categorization Graph}
+
+Figure \ref{graph:cat_graph_copy_from_pbs_chap} shows the transactional categorizations and the bounds in which deem the categories. Figure \ref{graph:mls_cat_graph} shows the extension to multi-level secure databases where a third dimension of categorization is added in order provide a solution that doesn't involve the side effects of transactional starvation.
+
+\createMLSCategorizationGraph{graph:mls_cat_graph}{MLS Categorization Graph}
+
+In order to prevent covert timing channels within multi-level secure database, we propose that the timing delay of the existing prediction-based solution be used as a "cover story" for the timing difference between transactions of differing security levels. The cover story would allow for transactions to be aborted for conflicting transactions without introducing a covert timing channel for unauthorized disclosure of high security resources.
+
+Since the bulk of the theoretical and simulation results have been accomplished in Chapter \ref{chap:prediction_based_scheduler} through the publication of \cite{ravan_ensuring_2020} we propose that this work consist of a submission to a conference.
