@@ -41,6 +41,7 @@
 \usepackage{array, booktabs}
 \usepackage{colortbl}
 \usepackage{csquotes}
+\usepackage[acronym]{glossaries}
 \pgfplotsset{compat=1.15}
 
 \newcommand{\foo}{\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}}
@@ -236,7 +237,11 @@ The Citadel Graduate College 2014\\ %% The \\ on this line is
 %%  \include command.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%% Abbreviations
+\input{chapters/abbreviations}
+
 \begin{document}
+\printacronyms
 \include{chapters/1__Introduction/main}    %% Calls Introduction.tex
                           %% Honors theses are required to 
                           %% have an Introduction.  For
@@ -248,9 +253,9 @@ The Citadel Graduate College 2014\\ %% The \\ on this line is
                           %% introduction.
                           
 \include{chapters/2__PBS_Scheduler/main} %% Chapter 2
-\include{chapters/3__Multi_Level_Security/main} %% Chapter 3
-\include{chapters/4__Dynamic_Reputation/main} %% Chapter 4
-\include{chapters/5__Dissertation_Outline/main} %% Chapter 5
+\include{chapters/3__Dynamic_Reputation/main} %% Chapter 3
+\include{chapters/4__Dissertation_Outline/main} %% Chapter 4
+\include{chapters/5__Future_Work/main} %% Chapter 5
 
 \include{chapters/6__Conclusion/main}     %% Honors theses are required to 
                           %% have an unnumbered chapter
@@ -276,6 +281,5 @@ The Citadel Graduate College 2014\\ %% The \\ on this line is
                         %% command \Appendix or \Appendices
                         %% you must use \input not \include
                         %% to load the first appendix.
-
 \end{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

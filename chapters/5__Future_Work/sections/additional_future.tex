@@ -1,6 +1,20 @@
-\section{Future Work}
-\label{conclusion:future_work}
+\section{Additional Future Work}
+
 In this section, we want to outline the future work opportunities of the prediction-based scheduler and how the work can be expanded upon. The work mentioned in this section is not meant to be included in this dissertation, but rather listing outstanding opportunities for the current and proposed work to continue forward.
+
+\subsection{Snapshot Isolation}
+Another potential for future work is the ability to perform snapshot isolation within the different categorizations of transactions. This extension will be for both malicious and lower priority transactions that affect the majority of well-performing transactions. In this work we'll use snapshot isolation to execute certain categorizations of transactions on snapshots of the database in order to prevent the effects of low-performing transactions from affecting all transactions. Once the outcome of a transaction has been determined then the snapshot can either be discarded or merged.
+
+\subsection{Prediction-based Scheduling within Linked Databases}
+An additional extension is the issue of efficient concurrency control within linked database environments. Currently the Prediction-based solution addresses efficient concurrent transactions within a web-service environment that are contained within a single cluster. This particular area of research will address the problem through the lens of the Prediction-based solution. The difficulty of the problem within this work is adapting the existing framework of correctness built within the Prediction-based solution so that it will scale to linked database systems while preserving its existing capabilities. Figure \ref{fig:system_model_linked_databases} shows the system model for the Prediction-based solution within linked database systems.
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\centering
+\includegraphics[width=\textwidth]{images/LinkedDatabase_SystemModel}
+\caption{Prediction-based Scheduler within Linked Databases}
+\label{fig:system_model_linked_databases}
+\end{figure}
 
 \subsection{PostgreSQL \& MySQL}
 \label{conclusion:posgressql}
