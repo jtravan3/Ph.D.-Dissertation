@@ -1,0 +1,24 @@
+\subsection{Locking Actions with Reputation Score}
+\label{sec:reputation_score_locking_actions}
+
+Now that we have a system for calculating a reputation score for all transactions that have entered the system, we can use that score and refine our existing locking actions. Tables \ref{tbl:read_lock_compatibility} and \ref{tbl:write_lock_compatibility} show the existing rules for when the three locking actions should be used. These rules were generated when we only had a four-category system. Now that we have reputation score, we need a much more refined formula that defines when to use the elevate action ($\delta$) and the decline action (-).
+
+In the previous model, an elevate or decline action would occur in situations where there was a conflict and the conflicting transactions (see Definition \ref{conflict_ops}) were in different categories. This did not take into account how closely similar or vastly different the two transactions were. It was very black and white could potentially cause extreme overhead due to excessive elevate actions.
+
+In the new model that we present here, we would elevate the transaction that possesses either Strong or Weak Dominance over the conflicting transaction.
+
+Let $T_{1}$ and $T_{2}$ be two conflicting transaction and $A$ = \{$decline (-)$, $elevate (\delta)$\} be the set of locking actions for conflicting transactions. For two conflicting transactions, let the mapping $\tau$ below display actions taken assuming that $T_{1}$ is the transaction with precedence. Therefore:
+
+\[ 
+\tau \rightarrow
+\left \{
+  \begin{tabular}{cc}
+  $elevate (\delta)$ & $Dominates_{S}(T_{1},T_{2})$ = false, and \\
+   & $Dominates_{W}(T_{1},T_{2})$ = false \\
+  $decline (-)$ & $Dominates_{S}(T_{1},T_{2})$ = true \\
+  $decline (-)$ & $Dominates_{W}(T_{1},T_{2})$ = true \\
+  \end{tabular}
+\right \}
+\]
+
+This model doesn't apply to grant (+) actions since there is no conflict and no need for conflicting locking action. In the next section we discuss how the reputation score is recalculated and rewards are applied.

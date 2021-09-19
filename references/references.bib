@@ -77,6 +77,22 @@ doi={10.1109/ICWS.2007.70},
  year     = {2014},
 }
 
+@inproceedings{lomet2006recovery,
+	address = {New York, NY, USA},
+	series = {{SIGMOD} '06},
+	title = {Recovery from "bad" user transactions},
+	isbn = {978-1-59593-434-5},
+	url = {http://doi.org/10.1145/1142473.1142512},
+	doi = {10.1145/1142473.1142512},
+	abstract = {User written transaction code is responsible for the "C" in ACID transactions, i.e., taking the database from one consistent state to the next. However, user transactions can be flawed and lead to inconsistent (or invalid) states. Database systems usually correct invalid data using "point in time" recovery, a costly process that installs a backup and rolls it forward. The result is long outages and the "de-commit" of many valid transactions, which must then be re-submitted, frequently manually. We have implemented in our transaction-time database system a technique in which only data tainted by a flawed transaction and transactions dependent upon its updates are "removed". This process identifies and quarantines tainted data despite the complication of determining transactions dependent on data written by the flawed transaction. A further property of our implementation is that no backup needs to be installed for this because the prior transaction-time states provide an online backup.},
+	urldate = {2021-02-06},
+	booktitle = {Proceedings of the 2006 {ACM} {SIGMOD} international conference on {Management} of data},
+	publisher = {Association for Computing Machinery},
+	author = {Lomet, David and Vagena, Zografoula and Barga, Roger},
+	month = jun,
+	year = {2006},
+	pages = {337--346}
+}
 
 
 @inproceedings{Fekete_IsolationSupport,
@@ -96,6 +112,16 @@ doi={10.1109/ICWS.2007.70},
   bibsource = {dblp computer science bibliography, http://dblp.org}
 }
 
+@INPROCEEDINGS{zhang_how_2012,
+  author={O. Q. {Zhang} and R. K. L. {Ko} and M. {Kirchberg} and C. H. {Suen} and P. {Jagadpramana} and B. S. {Lee}},
+  booktitle={2012 IEEE 11th International Conference on Trust, Security and Privacy in Computing and Communications}, 
+  title={How to Track Your Data: Rule-Based Data Provenance Tracing Algorithms}, 
+  year={2012},
+  volume={},
+  number={},
+  pages={1429-1437},
+  doi={10.1109/TrustCom.2012.175}
+}
 
 
 @inproceedings{Fekete_RAMP,
@@ -1193,3 +1219,26 @@ month = {2}
 	file = {IEEE Xplore Abstract Record:/Users/jravan/Zotero/storage/S4Q7NB6Q/6488313.html:text/html;IEEE Xplore Full Text PDF:/Users/jravan/Zotero/storage/46LLTYDX/Javaid et al. - 2013 - A reputation management system for efficient selec.pdf:application/pdf}
 }
 
+@inproceedings{theppatorn_2021,
+  author    = {Theppatorn Rhujittawiwat and
+               John Ravan and
+               Ahmed Saaudi and
+               Shankar M. Banik and
+               Csilla Farkas},
+  editor    = {Christoph Quix and
+               Slimane Hammoudi and
+               Wil M. P. van der Aalst},
+  title     = {Database Recovery from Malicious Transactions: {A} Use of Provenance
+               Information},
+  booktitle = {Proceedings of the 10th International Conference on Data Science,
+               Technology and Applications, {DATA} 2021, Online Streaming, July 6-8,
+               2021},
+  pages     = {39--48},
+  publisher = {{SCITEPRESS}},
+  year      = {2021},
+  url       = {https://doi.org/10.5220/0010553900390048},
+  doi       = {10.5220/0010553900390048},
+  timestamp = {Wed, 28 Jul 2021 15:47:33 +0200},
+  biburl    = {https://dblp.org/rec/conf/data/RhujittawiwatRS21.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}

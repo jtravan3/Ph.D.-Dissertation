@@ -1,0 +1,10 @@
+\section{Analysis}
+\label{sec:analysis}
+
+When looking at the behavior of all the use case executions we did notice trends given the parameters that were used.
+
+Use Cases 1 and 2 performed very similar with the parameters given. In both use cases, the number of aborted transactions never reached above 10\% of the total transactions therefore a recalculation of rankings was never executed. As more transactions executed within the system, the more the percentage of aborted transactions plateaued and we never saw a recalculation take place.
+
+Use Cases 3 \& 4 were purposely executed with extreme parameters in order to see the load the system would endure with multiple recalculations. There were multiple recalculations executed in asynchronous threads. The executions did not block the execution of the transactions but caused a great deal of CPU usage. These are parameters that we would not expect in a live system but were used specifically to see the load of recalculations.
+
+Use Cases 5 \& 6 were the use cases where all three schedulers were executing. All three schedulers executed with the same transactions, users, and use case parameters to get an equal comparison. This was the best indicator of what would be expected in a real world scenario.

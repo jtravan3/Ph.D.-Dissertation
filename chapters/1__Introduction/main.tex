@@ -1,6 +1,6 @@
 \chapter{Introduction}\label{chap:intro}
 
-Consistency among multiple interleaved transactions in a web service context has always been an issue for researchers and database administrators. Isolation and atomicity are two of the four \gls{acid}\footnote{The four traditional database properties are Atomicity, Consistency, Isolation, and Durability} properties that are often relaxed in order to prevent a performance bottleneck. However, when these properties are relaxed, the database can reach an inconsistent state when concurrent transactions interleave incorrectly. This causes data to become corrupted, expensive compensation transactions to be executed, and cascading rollbacks on multiple nodes to be completed before processing can continue. 
+Consistency among multiple interleaved transactions in a web service context has always been an issue for researchers and database administrators. Isolation and atomicity are two of the four \gls{acid} properties that are often relaxed in order to prevent a performance bottleneck. However, when these properties are relaxed, the database can reach an inconsistent state when concurrent transactions interleave incorrectly. This causes data to become corrupted, expensive compensation transactions to be executed, and cascading rollbacks on multiple nodes to be completed before processing can continue. 
 
 \input{chapters/1__Introduction/sections/motivations}
 \input{chapters/1__Introduction/sections/contributions}

@@ -1,0 +1,63 @@
+\subsection{Use Cases}
+\label{sec:er_use_cases}
+
+In this section, we discuss the use cases that were used to simulate executions within the schedulers. Input parameters collected as a set make up a single use case.
+
+Use cases are the parameters used for a specific execution. Use cases have the following attributes
+
+\begin{itemize}
+    \item \textbf{Name}
+    \begin{itemize}
+        \item A simple name to uniquely identify the use case
+    \end{itemize}
+    \item \textbf{Total Transactions Executed}
+    \begin{itemize}
+        \item An integer representing how many transactions were executed within that use case
+    \end{itemize}
+    \item \textbf{Recalculation Percentage}
+    \begin{itemize}
+        \item This is a decimal number representing the percentage of aborted transactions over all transactions that is the threshold of when a recalculation should occur throughout the system
+    \end{itemize}
+    \item \textbf{Conflicting Percentage}
+    \begin{itemize}
+        \item This is a decimal number representing the percentage of transactions that will conflict during execution.
+    \end{itemize}
+    \item \textbf{Abort Percentage}
+    \begin{itemize}
+        \item This is a decimal number representing the percentage of transactions that will end in an abort during execution.
+    \end{itemize}
+\end{itemize}
+
+
+These act as the input parameters for the executions as each set of use case parameters cause a different load on the system. The varying load consists of how many times a recalculation occurs and how many times a transaction must be executed again due to conflict or an abort. Table \ref{tbl:use_cases} shows the use case parameters that were used for simulation.
+
+\begin{table}
+\captionsetup{justification=centering}
+\centering
+ \begin{tabular}{|| c | c | c | c | c ||} 
+ \hline
+ \textbf{Name} & \textbf{Total \#} & \textbf{Recalculation \%} &  \textbf{Conflict \%} & \textbf{Abort \%} \\ [0.5ex] 
+ \hline\hline
+ Use Case 1 & 5,000 & 30 & 0 & 10  \\ 
+ \hline
+ Use Case 2 & 5,000 & 30 & 50 & 10  \\ 
+ \hline
+ Use Case 3 & 5,000 & 30 & 25 & 10  \\ 
+ \hline
+ Use Case 4 & 5,000 & 30 & 20 & 10  \\ 
+ \hline
+ Use Case 5 & 5,000 & 30 & 22 & 10  \\ 
+ \hline
+ Use Case 6 & 5,000 & 30 & 75 & 10  \\ 
+ \hline
+ Use Case 7 & 5,000 & 30 & 100 & 10  \\ 
+ [1ex] 
+ \hline
+\end{tabular}
+\caption{Use Cases Executed}
+\label{tbl:use_cases} % label to refer figure in text
+\end{table}
+
+Before the use cases executed in Table \ref{tbl:use_cases} there were numerous use cases executed as discovery metrics for the best results generation. The use cases listed in Table \ref{tbl:use_cases} outline the optimal executions to outline our contribution.
+
+In the next section we discuss how the experimentation was executed, limitations of the experimentation, and the goal of the experimentation.

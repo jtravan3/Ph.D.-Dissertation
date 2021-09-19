@@ -1,0 +1,107 @@
+\subsection{Application}
+\label{sec:er_application}
+
+In this section, we discuss the application environment used for executing transactions.
+
+The application is written using Spring Boot and Java.
+\href{https://spring.io/projects/spring-boot}{Spring Boot} is an application framework that allows Java applications to be containerized easily and manage dependencies within the application itself.
+
+Within the application we have four transaction schedulers implemented
+
+\begin{itemize}
+  \item No-Locking Scheduler (NoSQL)
+  \item Traditional Scheduler (\gls{2pl})
+  \item Prediction-Based Scheduler'
+  \item Dynamic Reputation Scheduler
+\end{itemize}
+
+Each scheduler is executed with the same execution parameters. Those parameters include
+
+\begin{itemize}
+    \item Users
+    \item Transactions
+    \item Rate of abort
+    \item Rate of conflict
+    \item Use Case (discussed in next section)
+\end{itemize}
+
+Each scheduler executes in its own dedicated thread and we record results for each execution for analysis. Table \ref{tbl:execution_history} is a schema diagram of the results that we capture for each transaction execution.
+
+\begin{table}
+\captionsetup{justification=centering}
+\centering
+ \begin{tabular}{|p{0.28\linewidth} | p{0.5\linewidth}|}
+ \hline
+ \textbf{Attribute Name} & \textbf{Description} \\ [0.5ex] 
+ \hline\hline
+%  id & The primary key of the results table \\ 
+%  \hline
+ userid & Unique identifier for the user  \\
+ \hline
+ user\_ranking & Decimal value containing user ranking defined in Definition \ref{def:user_ranking}  \\
+ \hline
+ transactionid & Unique identifier for the transaction \\
+ \hline
+ commit\_ranking & Decimal value containing user ranking defined in Definition \ref{def:commit_ranking}  \\
+ \hline
+ system\_ranking & Decimal value containing user ranking defined in Definition \ref{def:system_abort_ranking}  \\
+ \hline
+ eff\_ranking & Decimal value containing user ranking defined in Definition \ref{def:efficiency_ranking}  \\
+ \hline
+ num\_of\_operations & Integer value of the number of operations in the transaction  \\
+ \hline
+ reputation\_score & String representation of all rankings together  \\
+ \hline
+ transaction\_exec\_time & Decimal representing to the total execution time in milliseconds  \\
+ \hline
+ percentage\_aborted & Decimal representing to percentage of aborted transactions over the total transactions during that particular execution  \\
+ \hline
+ recalculation\_needed & Boolean representing if the recalculation threshold was surpassed   \\
+ \hline
+ time\_executed & Timestamp representing the time of the execution  \\
+ \hline
+ dominance\_type & String representing what type of dominance was established (see Definitions \ref{def:strong_dominance}, \ref{def:weak_dominance}, and \ref{def:not_comparable})  \\
+ \hline
+ transaction\_outcome & String representing whether the execution committed, aborted, or aborted due to higher dominance  \\
+ \hline
+ scheduler\_type & String representing which scheduler submitted the execution  \\
+ \hline
+ use\_case & String representing what use case this execution was a part of  \\
+ \hline
+ category & String representing the category of the transaction if it was an execution from PBS  \\
+ \hline
+ transaction\_type & String representing whether it was as normal or compensation transaction  \\ [1ex] 
+ \hline
+\end{tabular}
+\caption{Execution History Attributes}
+\label{tbl:execution_history} % label to refer figure in text
+\end{table}
+
+% Once the application is deployed, it is running but the schedulers are not started. In order to start the application, we have to interact with the REST API that is a part of the application.
+
+% \begin{itemize}
+%   \item \textbf{/health}
+%   \begin{itemize}
+%      \item Returns a simple status if the application is running
+%   \end{itemize}
+%   \item \textbf{/info}
+%   \begin{itemize}
+%      \item Returns application version to ensure the right version of the application is running
+%   \end{itemize}
+%   \item \textbf{/start}
+%   \begin{itemize}
+%      \item This is the endpoint used to start the execution of the schedulers. There is a table that stores the use cases that we wish to run. Once this endpoint is accessed, it will pull the use case that we have configured and begin running with those parameters
+%   \end{itemize}
+%   \item \textbf{/stop}
+%   \begin{itemize}
+%      \item This stops the execution of the schedulers
+%   \end{itemize}
+%   \item \textbf{/update}
+%   \begin{itemize}
+%      \item This allows us to update the parameters without redeploying the application
+%   \end{itemize}
+% \end{itemize}
+
+Before we started running the schedulers we generated users and transactions with random rankings between 0 and 1 for an initial working set. We generated over 5800 users and over 11000 transactions.
+
+When the recalculation percentage threshold is reached we recalculate all of the rankings based on our definitions of each ranking (see Section \ref{sec:definitions}). This recalculation takes place in its own thread to prevent blocking the schedulers from continuing with their executions.

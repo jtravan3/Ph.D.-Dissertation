@@ -1,0 +1,43 @@
+\subsection{Transaction Identification}
+\label{sec:transaction_identification}
+The first problem of properly maintaining a transactional reputation is establishing the ability to identify a class of transactions. We must identify a class of transactions otherwise every unique transaction will be given its own reputation. For example, in Figure \ref{fig:transaction_classes} we see that $T_{1}$ and $T_{2}$ have the same number of operations, the same order of operations, and executed by the same user. The only difference between the two transactions is the that the resources is differ. $T_{1}$ and $T_{2}$ are good candidates for its own transaction class that contain the same reputation diagnosis rather than operating as separate reputations. On the other hand, $T_{3}$ and $T_{4}$ would not be candidates for a transaction class. While they are executed by the same user, they do not have the same number of matching operations.
+
+
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\centering % used for centering Figure
+
+\begin{picture}(50,50)
+    \put(-75,50){$T_{1}{user_{1}}$ = $R_{1}(a)R_{2}(b)R_{1}(b)W_{2}(b)R_{2}(a)W_{2}(a)$}
+     \put(-75,35){$T_{2}{user_{1}}$ = $R_{1}(c)R_{2}(a)R_{1}(a)W_{2}(d)R_{2}(b)W_{2}(c)$}
+     \put(-75,20){$T_{3}{user_{2}}$ = $R_{1}(a)R_{2}(b)R_{1}(b)W_{2}(b)R_{2}(a)W_{2}(a)$}
+     \put(-75,5){$T_{4}{user_{2}}$ = $R_{1}(c)R_{2}(a)R_{1}(a)W_{2}(d)$}
+\end{picture}
+
+\caption{Transaction Classes} % title of the Figure
+\label{fig:transaction_classes} % label to refer figure in text
+
+\end{figure}
+
+In order to create transaction classes we must separate intrinsic and extrinsic attributes of a transaction. This pattern of separating the unique attributes (see Definition \ref{intrinsic_attributes}) from the common attributes (see Definition \ref{extrinsic_attributes}) is known as the Flyweight Design Pattern in Software Engineering (see \cite{gof:1994}).
+
+The Flyweight Software Design Pattern was originally developed to save space for in-memory applications by sharing a common objects rather that creating new objects each time. While we're not concerned about memory usage in this application, the Flyweight pattern provides a framework for separating the common attributes (intrinsic state) from the specific attributes (extrinsic state). Once we have these separated we can use the intrinsic state to define a transaction class (see Definition \ref{transaction_class}) while using the extrinsic attributes to calculate a reputation score.
+
+Table \ref{tbl:intrinsic_and_extrinsic_attributes} shows transactional attributes that are used in the identification of a transaction class (intrinsic) and the attributes that are used in identifying the reputation of a transaction class (see Definition \ref{transaction_class}).
+
+\begin{table}[h]
+\captionsetup{justification=centering}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{\cellcolor[HTML]{EFEFEF}\textbf{Transaction Class Attributes}}                                                   \\ \hline
+\textbf{Intrinsic} & \textbf{Extrinsic}   \\ \hline
+\# of Operations  &  Execution Time         \\ \hline
+Order of Operations  &  Commit Rate      \\ \hline
+User             & Resources            \\ \hline
+\end{tabular}
+
+\caption{Intrinsic \& Extrinsic Transactional Attributes} 
+\label{tbl:intrinsic_and_extrinsic_attributes}
+
+\end{table}

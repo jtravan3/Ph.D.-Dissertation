@@ -1,21 +1,36 @@
-\section{Remaining Work}
-\label{mls:remaining_work}
+\section{Future Work}
+\label{mls:future_work}
 
-In this section we discuss the proposed work for implementing a security classification within the prediction-based scheduler (outlined in Chapter \ref{chap:prediction_based_scheduler}) that would address the issues found specifically in \gls{mls} databases. This section contains the proposal itself.
+In this section we discuss the potential future work for implementing a security classification within the prediction-based scheduler (outlined in Chapters \ref{chap:prediction_based_scheduler} and \ref{chap:dynamic_reputation}) that would address the issues found specifically in \gls{mls} databases. 
 
-Within the prediction-based solution, there are currently two factors that allow for a two-dimensional categorization among transactions. Those two factors are high and low commit probability and efficiency rate (see Definitions \ref{cat_bounds} \& \ref{transaction_categories} in Chapter \ref{chap:prediction_based_scheduler}). This allows for the formation of a total of four categories that a transaction can be placed in. Within these categories, there is a dominance structure that causes transactions to be prioritized depending on their categorization (outlined in Definition \ref{cat_dominance}). With all of these components in place, we have a foundation for efficient transaction categorization within \gls{mls} databases.
+Within the prediction-based solution, there are currently four attributes that allow for a reputation score to be calculated among transactions. Those four attributes are commit ranking, efficiency ranking, user ranking and system ranking (see Definitions \ref{def:commit_ranking}, \ref{def:efficiency_ranking}, \ref{def:user_ranking}, and \ref{def:system_abort_ranking} in Chapter \ref{chap:dynamic_reputation}). This allows for the formation of a reputation score to be calculated for each transaction in the system. Within these reputation scores, there is a dominance structure that causes transactions to be prioritized depending on if dominance can be established (outlined in Definitions \ref{def:strong_dominance} and \ref{def:weak_dominance}). With all of these components in place, we have a foundation for efficient transaction categorization within \gls{mls} databases.
 
-Our proposal, is to transform the existing two-dimensional categorization within the existing prediction-based solution to a three-dimensional categorization that includes security classification. This will involve an update dominance structure to ensure the absence of covert channels and also prevent starvation of higher security transactions within the system. The solution would allow for a better decision making model for which transactions are aborted and rescheduled. The three-dimensional categorization would take security classification into account, but it would not allow the security classification to be the only dictating factor. Extending the prediction-based solution would allow the efficiency and commit rate factors to be included within the decision process. Figure \ref{graph:cat_graph_copy_from_pbs_chap} is a representation of Figure \ref{graph:cat_graph} in Chapter \ref{chap:prediction_based_scheduler} showing the two dimensional structure that the prediction-based solution currently uses.
+A potential future state of the system is to transform the existing reputation score within the existing prediction-based solution to a reputation score with a fifth attribute that includes security classification. This will involve an update dominance structure to ensure the absence of covert channels and also prevent starvation of higher security transactions within the system. The solution would allow for a better decision making model for which transactions are aborted and rescheduled. The new reputation score would take security classification into account, but it would not allow the security classification to be the only dictating factor. Extending the prediction-based solution would allow the other four attributes to be included within the decision process. Figure \ref{fig:existing_reputation_score} is a representation of the existing reputation score defined in Chapter \ref{chap:dynamic_reputation}. Figure \ref{fig:mls_reputation_score} represent the new reputation score needed for \gls{mls} databases.
 
-\createCategorizationGraph{graph:cat_graph_copy_from_pbs_chap}{PBS Categorization Graph}
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\centering % used for centering Figure
 
-Figure \ref{graph:cat_graph_copy_from_pbs_chap} shows the transactional categorizations and the bounds in which deem the categories. Figure \ref{graph:mls_cat_graph} shows the extension to multi-level secure databases where a third dimension of categorization is added in order provide a solution that doesn't involve the side effects of transactional starvation.
+\[\textrm{$RS_{T_{i}} = <w_{i}^{1}\times CR_{T_{i}},w_{i}^{2}\times ER_{T_{i}},w_{i}^{3}\times UR_{i},w_{i}^{4}\times SR_{T_{i}}>$}\]
 
-\createMLSCategorizationGraph{graph:mls_cat_graph}{MLS Categorization Graph}
+\caption{Current Reputation Score} % title of the Figure
+\label{fig:existing_reputation_score} % label to refer figure in text
 
-In order to prevent covert timing channels within multi-level secure database, we propose that the timing delay of the existing prediction-based solution be used as a "cover story" for the timing difference between transactions of differing security levels. The cover story would allow for transactions to be aborted for conflicting transactions without introducing a covert timing channel for unauthorized disclosure of high security resources.
+\end{figure}
 
-In summary, there are two well-known problems within multi-level secure databases. The first problem is the existence timing covert channels when transactions of multiple security levels are accessing a common resource. The presence or absence of a time delay provides the indication of high security resources that are available. The second problem, is brought on by the solution to multi-level secure databases. A solution to prevent against covert channels is to abort transactions of a higher security classification so that the time delay does not exist. However, this then causes these transactions to suffer from starvation and will never be executed. The solution (proposed in Section \ref{mls:remaining_work} will address both problems and provide a way forward for more granular decision-making within multi-level secure database systems.
+\begin{figure}[h]
+\captionsetup{justification=centering}
+\centering % used for centering Figure
 
-\subsection{Concluding Remarks}
+\[\textrm{$RS_{T_{i}} = <w_{i}^{1}\times CR_{T_{i}},w_{i}^{2}\times ER_{T_{i}},w_{i}^{3}\times UR_{i},w_{i}^{4}\times SR_{T_{i}},w_{i}^{5}\times SC_{T_{i}}>$}\]
+
+\caption{MLS Reputation Score} % title of the Figure
+\label{fig:mls_reputation_score} % label to refer figure in text
+
+\end{figure}
+
+In order to prevent covert timing channels within multi-level secure database, the future solution would leverage the timing delay of the existing prediction-based solution be used as a "cover story" for the timing difference between transactions of differing security levels. The cover story would allow for transactions to be aborted for conflicting transactions without introducing a covert timing channel for unauthorized disclosure of high security resources.
+
+In summary, there are two well-known problems within multi-level secure databases. The first problem is the existence timing covert channels when transactions of multiple security levels are accessing a common resource. The presence or absence of a time delay provides the indication of high security resources that are available. The second problem, is brought on by the solution to multi-level secure databases. A solution to prevent against covert channels is to abort transactions of a higher security classification so that the time delay does not exist. However, this then causes these transactions to suffer from starvation and will never be executed. The solution presented in this section will address both problems and provide a way forward for more granular decision-making within multi-level secure database systems.
+
 With the prediction-based scheduler in place and a solution for dynamic reputation of transactions, the possibilities for extension within multi-level secure databases is then feasible . Chapter \ref{chap:prediction_based_scheduler} presented the solution and operated under the assumption that the reputation of the transactions were already established. Chapter \ref{chap:dynamic_reputation} focuses on exactly how the transactions establish their reputation and also dynamically increase or decrease their reputation. With this work in place, extending the prediction-based system to multi-level secure databases is now possible.

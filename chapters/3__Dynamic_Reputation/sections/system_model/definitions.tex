@@ -1,4 +1,166 @@
 \subsection{Definitions}
-\label{rep:definitions}
+\label{sec:definitions}
+This section outlines the definitions on which the solution is built. These definitions will be used to describe the different components that consist of the system model.
 
-There are multiple definitions within Chapters \ref{chap:prediction_based_scheduler} \& \ref{chap:multi_level_security} that will be used as a part of the VRM extension. There will also be changes to existing definitions and new definitions to properly implement and define the VRM solution.
+\begin{definition}
+\label{def:compatibility}
+(Compatibility) - a data item $d_{i}$ within transaction $T_{i}$ is locked in a non-compatible mode if:
+
+\begin{enumerate}
+  \item $d_{i}$ is locked by write-lock
+  \item $Dominates_{S}(T_{i},T_{j})$ = false, or
+  \item $Dominates_{W}(T_{i},T_{j})$ = false
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+\label{def:legal_scheduler}
+ (Legal Scheduler) - a prediction-based scheduler is legal if:
+ 
+ \begin{enumerate}
+    \item \textbf{Grant:} (denoted as the addition symbol, +) a transaction is permitted to lock a data item if the data item is not already locked in a non-compatible mode (see Definition \ref{def:compatibility}) by an other transaction\footnote{In the event that a lock is requested of a resource that has not issued any locks, then the lock will be automatically granted. There is no conflict, and therefore, the compatibility matrices do not apply.}.
+    \item \textbf{Decline:} (denoted as the subtraction symbol, -) a transaction $T_{i}$ is denied to lock a data item if the data item is already locked in a non-compatible mode (see Definition \ref{def:compatibility}) by another transaction $T_{j}$ where $\tau(T_{i}) \le \tau(T_{j})$
+    \item \textbf{Elevate:} (denoted as lowercase delta, $\delta$) a transaction $T_{i}$ is permitted to lock a data item if all the non-compatible locks (see Definition \ref{def:compatibility}) on the data item are being held by transactions $T_{1}, ... , T_{k}$ such that $\tau(T_{j}) < \tau(T_{i})$ for all $j = 1, ..., k$ in this case $T_{1}, ... , T_{k}$ must first release the locks on the data item before $T_{i}$ is permitted to lock the data item.
+ \end{enumerate}
+\end{definition}
+
+\begin{definition}
+\label{def:commit_ranking}
+(Commit Ranking) - the commit ranking of a transaction $T_{i}$, denoted as $CR_{T_{i}}$, is based on the number times a transaction commits compared to other transactions in the system. If $C_{T_{i}}$ is the number of commits for transaction $T_{i}$ and $T_{c}$ represents the subset of all transactions $T_{all}$ with smaller or equal number of commits than $T_{i}$ then the commit ranking is calculated based on the given formula: 
+ 
+\[\textrm{$T_{c}$} = \{\, T\in \textrm{$T_{all}$} \mid \textrm{$C_{T} \leq C_{T_{i}}$} \,\}\]
+
+\[\textrm{$CR_{T_{i}} = \frac{|T_{c}|}{|T_{all}|}$}\]
+
+\begin{example}
+Let $C_{T_{i}} = 500$, $|D| = 450$, and $|T_{all}| = 600$ then $CR_{T_{i}} = 0.75$
+\end{example}
+\end{definition}
+
+\begin{definition}
+\label{def:efficiency_ranking}
+(Efficiency Ranking) - the efficiency ranking of a transaction $T_{i}$, denoted as $ER_{T_{i}}$, is based on how its execution time $time_{T_{i}}$ compares to all transactions executed within the execution environment. If $T_{e}$ represents the subset of all transactions $T_{all}$ with larger or equal execution time than $T_{i}$ then the efficiency ranking is calculated based on the given formula: 
+
+\[\textrm{$T_{e}$} = \{\, T\in \textrm{$T_{all}$} \mid \textrm{$time_{T} \geq time_{T_{i}}$} \,\}\]
+
+\[\textrm{$ER_{T_{i}} = \frac{|T_{e}|}{|T_{all}|}$}\]
+
+\begin{example}
+Let $time_{T_{i}} = 400s$, $|T_{e}| = 30$, and $|T_{all}| = 250$ then $ER_{T_{i}} = 0.12$
+\end{example}
+\end{definition}
+
+\begin{definition}
+\label{def:user_ranking}
+(User Ranking) - the user ranking of a user in the system denoted as $UR_{i}$ is based on the user's ranking among other users and their impact on the commit rate (see Definition \ref{def:commit_ranking}) via forced aborts. If $FA_{U_{i}}$ is the amount of forced aborts caused by user $U_{i}$ and $U_{a}$ represents the subset of all users $U_{all}$ with more or equal number of forced aborts than $U_{i}$ then $UR_{i}$ is calculated on the given formula:
+
+\[\textrm{$U_{a}$} = \{\, U\in \textrm{$U_{all}$} \mid \textrm{$FA_{U} \geq FA_{U_{i}}$} \,\}\]
+
+\[\textrm{$FA_{U_{i}} = \frac{|U_{a}|}{|U_{all}|}$}\]
+
+\begin{example}
+Let $FA_{U_{i}} = 4$, $|U_{a}| = 15$, and $|U_{all}| = 24$ then $UR_{i} = 0.625$
+\end{example}
+\end{definition}
+
+\begin{definition}
+\label{def:system_abort_ranking}
+(System Ranking) - the system ranking of a transaction $T_{i}$, denoted as $SR_{T_{i}}$, is the transaction's ranking among other transactions based on the number of times the transaction has been aborted by the system via elevate actions (see Definition \ref{def:legal_scheduler}) or any system causes. If $A_{T_{i}}$ represents the number of system aborts for transaction $T_{i}$ and $T_{a}$ represents the subset of all transactions $T_{all}$ with more or equal number of system aborts than $T_{i}$ then $SR_{T_{i}}$ is calculated on the given formula:
+
+\[\textrm{$T_{a}$} = \{\, T\in \textrm{$T_{all}$} \mid \textrm{$A_{T} \geq A_{T_{i}}$} \,\}\]
+
+\[\textrm{$SR_{T_{i}} = \frac{|T_{a}|}{|T_{all}|}$}\]
+
+\begin{example}
+Let $A_{T_{i}} = 7$, $|T_{a}| = 10$, and $|T_{all}| = 320$ then $SR_{T_{i}} = 0.03125$
+\end{example}
+\end{definition}
+
+\begin{definition}
+\label{def:reputation_score}
+(Reputation Score) - a Reputation Score of a transaction $T_{i}$ denoted as $RS_{T_{i}}$ is a 4-tuple of the calculated attributes  for transaction $T_{i}$ and user $U_{T_{i}}$. The attributes are the commit ranking, efficiency ranking, user ranking, and the system ranking multiplied by a weighted value $w_{i}^{1...4}$ that change the precedence of a particular score value. The Reputation Score is denoted as follows:
+
+\[\textrm{$RS_{T_{i}} = <w_{i}^{1}\times CR_{T_{i}},w_{i}^{2}\times ER_{T_{i}},w_{i}^{3}\times UR_{i},w_{i}^{4}\times SR_{T_{i}}>$}\]
+
+where $CR_{T_{i}}$ is the Commit Ranking (see Definition \ref{def:commit_ranking}), $ER_{T_{i}}$ is the Efficiency Ranking (see Definition \ref{def:efficiency_ranking}), $UR_{i}$ is the User Ranking (see Definition \ref{def:user_ranking}), and $SR_{T_{i}}$ is the System Ranking (see Definition \ref{def:system_abort_ranking}).
+\begin{example}
+Assuming $w_{i}^{1...4} = 1$, for a transaction $T_{i}$ and a user $U_{i}$ let $CR_{T_{i}} = 0.35$, $ER_{T_{i}} = 0.75$, $UR_{i} = 0.23$, and $SR_{T_{i}} = 0.85$ then $RS_{T_{i}} = <0.35,0.75,0.23,0.85>$
+\end{example}
+\end{definition}
+
+\begin{definition}
+\label{def:strong_dominance}
+(Strong Dominance) - Let $RS_{T_{i}} = <w_{i}^{1}\times CR_{T_{i}},w_{i}^{2}\times ER_{T_{i}},w_{i}^{3}\times UR_{i},w_{i}^{4}\times SR_{T_{i}}>$, and $RS_{T_{j}} = <w_{j}^{1}\times CR_{T_{j}},w_{j}^{2}\times ER_{T_{j}},w_{j}^{3}\times UR_{j},w_{j}^{4}\times SR_{T_{j}}>$ denote the reputation scores of transactions $T_{i}$ and $T_{j}$ respectively. Transaction $T_{i}$ has strong dominance over transaction $T_{j}$, denoted as $Dominates_{S}(T_{i},T{j})$, if and only if the following conditions are true: 
+
+\begin{enumerate}
+    \item $w_{i}^{1} \times CR_{T_{i}} \geq w_{j}^{1} \times CR_{T_{j}}$,
+    \item $w_{i}^{2} \times ER_{T_{i}} \geq w_{j}^{2} \times ER_{T_{j}}$,
+    \item $w_{i}^{3} \times UR_{i} \geq w_{j}^{3} \times UR_{j}$, and
+    \item $w_{i}^{4} \times SR_{T_{i}} \geq w_{j}^{4} \times SR_{T_{j}}$
+\end{enumerate}
+
+\begin{example}
+Assuming $w_{i}^{1...4} = 1$ and $w_{j}^{1...4} = 1$, for a transactions $T_{i}$ and $T_{j}$ and users $U_{i}$ and $U_{j}$ let $RS_{T_{i}} = <0.35,0.75,0.23,0.85>$ and $RS_{T_{j}} = <0.15,0.55,0.03,0.45>$ then $Dominates_{S}(T_{i},T{j})$
+\end{example}
+\end{definition}
+
+\begin{definition}
+\label{def:weak_dominance}
+(Weak Dominance) - Let $SUM(T_{i}) = CR_{T_{i}} + ER_{T_{i}} + UR_{i} + SR_{T_{i}}$ and $SUM(T_{j}) = CR_{T_{j}} + ER_{T_{j}} + UR_{j} + SR_{T_{j}}$ denote the sum of the attributes of the reputation scores for transactions $T_{i}$ and $T_{j}$ respectively. Transaction $T_{i}$ has weak dominance over transaction $T_{j}$, denoted as $Dominates_{W}(T_{i},T{j})$, if and only if the following conditions are true:
+\begin{enumerate}
+    \item $Dominates_{S}(T_{i},T_{j})$ = false,
+    \item $Dominates_{S}(T_{j},T_{i})$ = false, and
+    \item $SUM(T_{i}) \geq SUM(T_{j})$
+\end{enumerate}
+
+\begin{example}
+Assuming $w_{i}^{1...4} = 1$ and $w_{j}^{1...4} = 1$, for a transactions $T_{i}$ and $T_{j}$ and users $U_{i}$ and $U_{j}$ let $RS_{T_{i}} = <0.35,0.75,0.23,0.65>$ and $RS_{T_{j}} = <0.15,0.76,0.03,0.85>$ then $Dominates_{S}(T_{i},T{j}) = false$ but $SUM(T_{i}) = 1.98$ and $SUM(T_{j}) = 1.79$ therefore $Dominates_{W}(T_{i},T{j})$
+\end{example}
+\end{definition}
+
+\begin{definition}
+\label{def:not_comparable}
+(Not Comparable) - Transaction $T_{i}$ is not comparable to transaction $T_{j}$ if and only if the following conditions are true:
+
+\begin{enumerate}
+    \item $Dominates_{S}(T_{i},T_{j})$ = false,
+    \item $Dominates_{S}(T_{j},T_{i})$ = false,
+    \item $Dominates_{W}(T_{i},T_{j})$ = false, and
+    \item $Dominates_{W}(T_{j},T_{i})$ = false
+\end{enumerate}
+
+\begin{example}
+Assuming $w_{i}^{1...4} = 1$ and $w_{j}^{1...4} = 1$, for a transactions $T_{i}$ and $T_{j}$ and users $U_{i}$ and $U_{j}$ let $RS_{T_{i}} = <0.35,0.75,0.23,0.65>$ and $RS_{T_{j}} = <0.25,0.76,0.12,0.85>$ then $Dominates_{S}(T_{i},T{j}) = false$. $SUM(T_{i}) = 1.98$ and $SUM(T_{j}) = 1.98$ and $Dominates_{W}(T_{i},T{j}) = false$ therefore $T_{i}$ has equal dominance over $T_{j}$
+\end{example}
+\end{definition}
+
+% \begin{definition}
+% \label{extrinsic_attributes}
+%  (Extrinsic Attributes) - a transactional attribute is extrinsic if
+
+%  \begin{enumerate}
+%   \item it is mutable
+%   \item it can be different among transactions of the same class, and
+%   \item it affects the reputation of a transaction class
+%  \end{enumerate}
+
+%  \begin{example}
+%  \label{ex_extrinsic_attribute}
+%   Let $T_{a_{1}}$ be a transactional attribute of $T_{1}$ and $T_{2}$ that are within transactional class $T_{c_{1}}$. $T_{a_{1}}$ contains multiple values, changes, and determines the reputation of that transactional class. $T_{a_{1}}$ is an extrinsic attribute.
+%  \end{example}
+% \end{definition}
+
+% \begin{definition}
+% \label{transaction_class}
+%  (Transaction Class) - transactions are considered to be in a transaction class if
+
+%  \begin{enumerate}
+%   \item they contain the same value for all intrinsic attributes, and
+%   \item they do not exist in another transaction class
+%  \end{enumerate}
+
+%  \begin{example}
+%  \label{ex_transaction_class}
+%   Let $T_{1}$ and $T_{2}$ be two transactions in transaction class $T_{c_{1}}$. $T_{1}$ and $T_{2}$ have the same value for all intrinsic attributes and do not exist in another transaction class. $T_{c_{1}}$ is a properly identified transactional class.
+%  \end{example}
+% \end{definition}

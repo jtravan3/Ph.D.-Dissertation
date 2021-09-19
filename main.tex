@@ -30,7 +30,9 @@
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage{hhline}
+\usepackage{glossaries}
 
+\makeglossaries
 %%%%%%% FOR EDITING ONLY. REMOVE WHEN DONE %%%%%%%%%
 %\openup 2em
 %%%%%%%%%%%%%%%%%%%
@@ -41,7 +43,6 @@
 \usepackage{array, booktabs}
 \usepackage{colortbl}
 \usepackage{csquotes}
-\usepackage[acronym]{glossaries}
 \pgfplotsset{compat=1.15}
 
 \newcommand{\foo}{\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}}
@@ -202,8 +203,11 @@ The Citadel Graduate College 2014\\ %% The \\ on this line is
                      %%
                      %% For Honors College theses use
                      %% \honorsabstract{}
+%% Abbreviations
+% \listofabbreviations{chapters/abbreviations}
+\input{chapters/abbreviations}
 
-%\summary{precis}     %% This command calls  precis.tex
+% \summary{chapters/precis}     %% This command calls  precis.tex
                      %% It is only available with the honors
                      %% option and it is REQUIRED for Honors
                      %% theses. 
@@ -237,11 +241,10 @@ The Citadel Graduate College 2014\\ %% The \\ on this line is
 %%  \include command.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% Abbreviations
-\input{chapters/abbreviations}
 
 \begin{document}
-\printacronyms
+\printglossary[title=Abbreviations, toctitle=List of Abbreviations]
+
 \include{chapters/1__Introduction/main}    %% Calls Introduction.tex
                           %% Honors theses are required to 
                           %% have an Introduction.  For
@@ -272,14 +275,15 @@ The Citadel Graduate College 2014\\ %% The \\ on this line is
                            %% uscthesisdoc.pdf documentation for
                            %% for alternative bibliographic systems.     
 
-\Appendix                 %% Use this command if you have one 
+% \Appendix                 %% Use this command if you have one 
                           %% appendix. Use \Appendices if you 
                           %% have more than one.
 	
-\input{chapters/appendix}         %% Calls toolong.tex which contains
+% \input{chapters/7__Appendix/main} %% Calls toolong.tex which contains
                           %% an appendix. After issuing the 
                         %% command \Appendix or \Appendices
                         %% you must use \input not \include
                         %% to load the first appendix.
+                        
 \end{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

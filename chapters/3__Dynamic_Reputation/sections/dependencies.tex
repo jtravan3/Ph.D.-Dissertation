@@ -1,0 +1,122 @@
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+    
+\usepackage{blindtext, hyperref, color, caption}
+\usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{amsmath, amsfonts, amsthm}
+\usepackage{multicol}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{fancyhdr}
+% \usepackage{lastpage}
+\usepackage{hhline}
+\usepackage{centernot}
+\usepackage{tablefootnote}
+
+\usetikzlibrary{calc,chains,arrows,shapes,arrows,backgrounds,positioning}
+%
+\usepackage[utf8]{inputenc}
+\usepackage{array, booktabs}
+\usepackage{colortbl}
+\usepackage{csquotes}
+\pgfplotsset{compat=1.15}
+
+\newcommand{\foo}{\makebox[0pt]{\textbullet}\hskip-0.5pt\vrule width 1pt\hspace{\labelsep}}
+\newcommand{\numberset}[1]{\mathbb{#1}}
+\newcommand{\nat}{\numberset{T}}
+\newcommand{\nau}{\numberset{U}}
+%
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}[definition]
+
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+
+\tikzset{
+block/.style={
+  rectangle,
+  draw,
+  text width=4.5em,
+  text centered,
+  rounded corners,
+  minimum height=3em},
+line/.style={draw, -latex'},
+edge/.style={draw},
+webservice/.style={
+  cloud,
+  draw,
+  cloud puffs=10,
+  cloud puff arc = 120,
+  aspect = 2,
+  inner ysep =.5em}
+}\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10002951</concept_id>
+       <concept_desc>Information systems</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10002952</concept_id>
+       <concept_desc>Information systems~Data management systems</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10002952.10003190</concept_id>
+       <concept_desc>Information systems~Database management system engines</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10002952.10003190.10003193</concept_id>
+       <concept_desc>Information systems~Database transaction processing</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10002952.10003190.10003193.10003429</concept_id>
+       <concept_desc>Information systems~Database recovery</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10002952.10003190.10003193.10003427</concept_id>
+       <concept_desc>Information systems~Data locking</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Information systems}
+\ccsdesc[500]{Information systems~Data management systems}
+\ccsdesc[500]{Information systems~Database management system engines}
+\ccsdesc[500]{Information systems~Database transaction processing}
+\ccsdesc[500]{Information systems~Database recovery}
+\ccsdesc[500]{Information systems~Data locking}
+
+\definecolor{bblue}{HTML}{4F81BD}
+\definecolor{rred}{HTML}{C0504D}
+\definecolor{ggreen}{HTML}{9BBB59}
+\definecolor{ppurple}{HTML}{9F4C7C}
+\definecolor{column_color}{HTML}{EFEFEF}
+\newtheorem{thm}{Theorem}[]
+\newtheorem*{thmun}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{ex}[thm]{Example}
+\theoremstyle{plain}
+\input{common/plot_data}
+\input{common/definition_commands}
+\input{common/categorization_graphs}
