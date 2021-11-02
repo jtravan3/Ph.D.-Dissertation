@@ -25,7 +25,7 @@ Each scheduler is executed with the same execution parameters. Those parameters 
     \item Use Case (discussed in next section)
 \end{itemize}
 
-Each scheduler executes in its own dedicated thread and we record results for each execution for analysis. Table \ref{tbl:execution_history} is a schema diagram of the results that we capture for each transaction execution.
+Each scheduler executes in its own dedicated thread and we record results for each execution for analysis. Table \ref{tbl:execution_history} is a schema diagram of the results that we capture for each transaction execution. Before we started running the schedulers we generated users and transactions with random rankings between 0 and 1 for an initial working set. We generated over 5800 users and over 11000 transactions.  When the recalculation percentage threshold is reached we recalculated all of the rankings based on our definitions of each ranking (see Section \ref{sec:definitions}). This recalculation takes place in its own thread to prevent blocking the schedulers from continuing with their executions.
 
 \begin{table}
 \captionsetup{justification=centering}
@@ -102,6 +102,5 @@ Each scheduler executes in its own dedicated thread and we record results for ea
 %   \end{itemize}
 % \end{itemize}
 
-Before we started running the schedulers we generated users and transactions with random rankings between 0 and 1 for an initial working set. We generated over 5800 users and over 11000 transactions.
 
-When the recalculation percentage threshold is reached we recalculate all of the rankings based on our definitions of each ranking (see Section \ref{sec:definitions}). This recalculation takes place in its own thread to prevent blocking the schedulers from continuing with their executions.
+
