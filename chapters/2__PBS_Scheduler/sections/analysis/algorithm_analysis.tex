@@ -1,6 +1,6 @@
 \section{Analysis}
 \label{pbs:analysis}
-In this section, we analyze the benefits of adding the prediction-based solution to the industry accepted solution of two-phase locking (\gls{2pl}, \cite[pp. 53-56]{Bernstein_1986:CCR:17299}). This analysis formally displays the correctness and feasibility of the prediction-based solution. This is accomplished by a step-by-step comparison of both solutions with the use case example outlined in Section \ref{subsec:use_case}.
+In this section, we analyze the benefits of adding the prediction-based solution to the industry accepted solution of two-phase locking (\ac{2PL}, \cite[pp. 53-56]{Bernstein_1986:CCR:17299}). This analysis formally displays the correctness and feasibility of the prediction-based solution. This is accomplished by a step-by-step comparison of both solutions with the use case example outlined in Section \ref{subsec:use_case}.
 
 From the use case example, let us say that $T_{GetOrderByUserID}$ is $T_{1}$ and $T_{DeleteOrderByUserID}$ is $T_{2}$. Figure \ref{fig:analysis_transactions} displays these transactions.
 
@@ -17,7 +17,7 @@ From the use case example, let us say that $T_{GetOrderByUserID}$ is $T_{1}$ and
 \label{fig:analysis_transactions} % label to refer figure in text
 \end{figure}
 
-From transactions $T_{1}$ and $T_{2}$ a schedule is generated to execute the two transactions concurrently. The schedule generated is legal and abides by all scheduling rules. To analyze the difference of a \gls{2pl} scheduler versus a \gls{2pl} scheduler with prediction-based metrics, we will assume the schedule generated is non-serializable. Figure \ref{fig:analysis_schedule} displays the generated schedule from the use case scenario outlined in Section \ref{subsec:use_case}.
+From transactions $T_{1}$ and $T_{2}$ a schedule is generated to execute the two transactions concurrently. The schedule generated is legal and abides by all scheduling rules. To analyze the difference of a \ac{2PL} scheduler versus a \ac{2PL} scheduler with prediction-based metrics, we will assume the schedule generated is non-serializable. Figure \ref{fig:analysis_schedule} displays the generated schedule from the use case scenario outlined in Section \ref{subsec:use_case}.
 
 \begin{figure}[h]
 \captionsetup{justification=centering}
@@ -31,7 +31,7 @@ From transactions $T_{1}$ and $T_{2}$ a schedule is generated to execute the two
 \label{fig:analysis_schedule} % label to refer figure in text
 \end{figure}
 
-We outline the sequence of actions below when $T_{Schedule}$ executes only using \gls{2pl}. We will use this sequence as our base for comparison with our prediction-based solution. There are three cases that we will analyze; $T_{1}$ has a higher classification than $T_{2}$, $T_{1}$ has a lower classification than $T_{2}$, and $T_{1}$ has an equal classification $T_{2}$.
+We outline the sequence of actions below when $T_{Schedule}$ executes only using \ac{2PL}. We will use this sequence as our base for comparison with our prediction-based solution. There are three cases that we will analyze; $T_{1}$ has a higher classification than $T_{2}$, $T_{1}$ has a lower classification than $T_{2}$, and $T_{1}$ has an equal classification $T_{2}$.
 
 \begin{enumerate}
   \item $T_{1}$ obtains a shared read-lock to resource $a$
@@ -45,7 +45,7 @@ We outline the sequence of actions below when $T_{Schedule}$ executes only using
 
 \subsection{\texorpdfstring{$T_{1}$ with Higher Priority than $T_{2}$}{}}
 \label{sec:t1_higher_than_t2}
-The first case we will analyze is the case of $T_{1}$ having a higher classification than $T_{2}$. Let's suppose that $T_{1}$ has a category classification of $HCHE$ and $T_{2}$ has a category classification of $LCLE$. As you can see from the sequence above, using only \gls{2pl} with the given schedule ends in deadlock. This is caused by $T_{1}$ waiting for a lock that $T_{2}$ holds on resource $b$ and $T_{2}$ waiting for a lock that $T_{1}$ holds on resource $a$. Neither can release their locks until they have obtained all the locks required for their transaction to complete. This, therefore, causes the schedule to halt in deadlock. However, if we were to add the prediction-based metrics to the existing \gls{2pl} protocol, we would get the following procedure instead:
+The first case we will analyze is the case of $T_{1}$ having a higher classification than $T_{2}$. Let's suppose that $T_{1}$ has a category classification of $HCHE$ and $T_{2}$ has a category classification of $LCLE$. As you can see from the sequence above, using only \ac{2PL} with the given schedule ends in deadlock. This is caused by $T_{1}$ waiting for a lock that $T_{2}$ holds on resource $b$ and $T_{2}$ waiting for a lock that $T_{1}$ holds on resource $a$. Neither can release their locks until they have obtained all the locks required for their transaction to complete. This, therefore, causes the schedule to halt in deadlock. However, if we were to add the prediction-based metrics to the existing \ac{2PL} protocol, we would get the following procedure instead:
 
 \begin{enumerate}
   \item $T_{1}$ obtains a shared read-lock to resource $a$
@@ -78,15 +78,15 @@ The second case we will analyze is the case of $T_{1}$ having a lower classifica
   \item $T_{2}$ obtains an exclusive write-lock on resource $b$
   \item $T_{1}$ attempts to obtain shared read-lock on resource $b$:
     \begin{itemize}
-        \item The system gets the transaction with the highest category from the \gls{rcds}
-        \item The system compares the category of the requesting transaction, $T_{1}$, with the category of the top of \gls{rcds}, which is $T_{2}$
+        \item The system gets the transaction with the highest category from the \ac{RCDS}
+        \item The system compares the category of the requesting transaction, $T_{1}$, with the category of the top of \ac{RCDS}, which is $T_{2}$
         \item $T_{2}$ contains the highest category, therefore, $T_{1}$ will wait until the lock is released
     \end{itemize}
   \item $T_{2}$ obtains a shared read-lock to resource $a$
   \item $T_{2}$ attempts to obtain an exclusive write-lock on resource $a$:
     \begin{itemize}
-        \item The system gets the transaction with the highest category from the \gls{rcds}
-        \item The system compares the category of the requesting transaction, $T_{2}$, with the category of the top of \gls{rcds} which is $T_{1}$
+        \item The system gets the transaction with the highest category from the \ac{RCDS}
+        \item The system compares the category of the requesting transaction, $T_{2}$, with the category of the top of \ac{RCDS} which is $T_{1}$
         \item $T_{2}$ contains the highest category, therefore, transactions with locks on resource $a$, $T_{1}$, will be dropped
         \item $T_{2}$ obtains a shared read-lock to resource $a$
     \end{itemize}    
@@ -110,21 +110,21 @@ The last and final case we will address is the case of $T_{1}$ having an equal c
   \item $T_{2}$ obtains an exclusive write-lock on resource $b$
   \item $T_{1}$ attempts to obtain shared read-lock on resource $b$:
     \begin{itemize}
-        \item The system gets the transaction with the highest category from the \gls{rcds}
-        \item The system compares the category of the requesting transaction, $T_{1}$, with the category from the \gls{rcds}, $T_{2}$
+        \item The system gets the transaction with the highest category from the \ac{RCDS}
+        \item The system compares the category of the requesting transaction, $T_{1}$, with the category from the \ac{RCDS}, $T_{2}$
         \item $T_{2}$ contains an equal category therefore $T_{1}$ will wait until the lock is released
     \end{itemize}
   \item $T_{2}$ obtains a shared read-lock to resource $a$
   \item $T_{2}$ attempts to obtain an exclusive write-lock on resource $a$:
     \begin{itemize}
-        \item The system gets the transaction with the highest category from the \gls{rcds}
-        \item The system compares the category of the requesting transaction, $T_{2}$, with the category from the \gls{rcds}, $T_{1}$
+        \item The system gets the transaction with the highest category from the \ac{RCDS}
+        \item The system compares the category of the requesting transaction, $T_{2}$, with the category from the \ac{RCDS}, $T_{1}$
         \item $T_{1}$ contains an equal category therefore $T_{2}$ will wait until the lock is released
     \end{itemize}    
   \item Deadlock!
 \end{enumerate}
 
-In this case we see that the prediction-based solution provides no added benefit that \gls{2pl} does not already address. However, the prediction-based solution performs exactly the same as \gls{2pl} would in this case.
+In this case we see that the prediction-based solution provides no added benefit that \ac{2PL} does not already address. However, the prediction-based solution performs exactly the same as \ac{2PL} would in this case.
 
 %%%%%%%%% OLD SIMULATION TEXT - BEGIN %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\input{sections/analysis/old_simulation}

@@ -1,6 +1,6 @@
 \section{Problem Definition}
 \label{pbs:problem_def}
-Transactions in traditional database systems satisfy the four \gls{acid}  properties: Atomicity, Consistency, Isolation, and Durability. \gls{acid} transactions guarantee leaving the database in a consistent state. However, in a web service environment \gls{acid} properties and transactional concurrency cannot be fulfilled, due to performance issues. Common occurrences in web service environments involve the collaboration of multiple web services to fulfill a particular task without coupling all the needed operations in one service. Languages, such as \gls{bpel} (Business Process Execution Language) \cite{BPEL}, allow a large majority of these business processes to execute web services that must access the underlying database management systems (DBMS). These transactions may be required to relax the isolation property of the database in order to accommodate concurrent transactions.
+Transactions in traditional database systems satisfy the four \ac{ACID}  properties: Atomicity, Consistency, Isolation, and Durability. \ac{ACID} transactions guarantee leaving the database in a consistent state. However, in a web service environment \ac{ACID} properties and transactional concurrency cannot be fulfilled, due to performance issues. Common occurrences in web service environments involve the collaboration of multiple web services to fulfill a particular task without coupling all the needed operations in one service. Languages, such as \ac{BPEL} (Business Process Execution Language) \cite{BPEL}, allow a large majority of these business processes to execute web services that must access the underlying database management systems (DBMS). These transactions may be required to relax the isolation property of the database in order to accommodate concurrent transactions.
 
 In the event that a transaction fails (abort), and there are transactions depending on the successful execution of the failed transaction, a cascading rollback must occur, due to the inconsistency of the database. This occurs often in the web service environment due to the relaxed atomicity and isolation properties. The relaxation of the atomicity property allows operations within a transaction to commit any changes performed by the operation permanently before the entire transaction has been completed. The relaxation of the isolation property allows the interleaved execution of operations on a particular resource from concurrent transactions. This improves performance tremendously; however, in the event an operation fails, causing an abort to be issued, every transaction depending upon the failed operation must be aborted as well in order to restore consistency. These compensation transactions have become a standard practice in web service environments but sacrifice the consistency of the system. The next section will discuss a use-case scenario where this problem exists.
 
@@ -102,6 +102,7 @@ Assume $WS_{3}$ and $WS_{5}$ are $T_{GetOrderByUserID}$ and $T_{DeleteOrderByUse
 For the transactions listed above, we know the commit rate, number of transactions executed, and the average execution time. Commit rate is the percentage of successful commits over the total amount of attempted executions of that particular transaction (Definition \ref{cmt_rate}). Number of transactions represents the total number of executions attempted (commits and aborts combined) for that particular transaction. Efficiency rate represents the average efficiency of the particular transaction to reach a completion state; whether it is a failure or success (Definition \ref{eff_rate}). A transaction with a very long execution time will have an efficiency rate that is much lower than a transaction that executes and completes very quickly. The attribute data listed previously is consolidated into Table \ref{tbl:trans_metrics} below. 
 \\
 \begin{table}[h]
+\caption{Transaction Metrics} % title of the Figure
 \captionsetup{justification=centering}
 \centering
 \begin{tabular}{|c|c|c|c|c|}
@@ -111,8 +112,6 @@ For the transactions listed above, we know the commit rate, number of transactio
 $T_{DeleteOrderByUserID}$         & 98\%                  & 200                         & 98\%                                          \\ \hline
 $T_{GetOrderByUserID}$          & 97\%                     & 520                           & 99\%                                              \\ \hline
 \end{tabular}
-
-\caption{Transaction Metrics} % title of the Figure
 \label{tbl:trans_metrics} % label to refer figure in text
 
 \end{table}

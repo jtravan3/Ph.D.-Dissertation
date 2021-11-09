@@ -1001,16 +1001,13 @@ Deparment of Mathematics}{\th@ugradsig}
 }
 \newcommand{\th@LoAbbrevpage}{
 	\if@makeLoAbbrev \typeout{Making List of Abbreviations}
-	\clearpage\thispagestyle{plain}
-	\chapter{List of Abbreviations}
-	{\DoubleSpacing
-	\th@loabbrevStash}
+	    \clearpage\thispagestyle{plain}
+	    \chapter{List of Abbreviations}
+	    {\DoubleSpacing
+	    \th@loabbrevStash}
 	\fi
 }
 
-
-
-   
    
 % This performs the actual generation of the prologue
 

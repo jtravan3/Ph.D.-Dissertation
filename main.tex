@@ -14,7 +14,8 @@
 \input{common/mls_plot_data}
 \input{common/plot_data}
 \usepackage[style=styles/uscauthoryear]{biblatex}
-\usepackage{blindtext, graphicx, hyperref, color, caption}
+\usepackage{blindtext, graphicx, color, caption}
+\usepackage[hidelinks]{hyperref}
 \usepackage{tikz}
 \usepackage{mathtools}
 \usepackage{pgfplots}
@@ -30,15 +31,13 @@
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage{hhline}
-\usepackage{glossaries}
+\usepackage[printonlyused,withpage]{acronym}
 
-\makeglossaries
 %%%%%%% FOR EDITING ONLY. REMOVE WHEN DONE %%%%%%%%%
 %\openup 2em
 %%%%%%%%%%%%%%%%%%%
 
 \usetikzlibrary{calc,chains,arrows,shapes,arrows,backgrounds,positioning}
-%
 \usepackage[utf8]{inputenc}
 \usepackage{array, booktabs}
 \usepackage{colortbl}
@@ -166,14 +165,14 @@ The Citadel Graduate College 2014\\ %% The \\ on this line is
 
 \degreename{Doctor of Philosophy}     %% The Graduate School provides 
                                  %% a list of official degrees.
-\field{Computer Science}              %% Fields also provided by the 
+\field{Computer Science and Engineering}              %% Fields also provided by the 
                                  %% Graduate School.
 \college{College of Engineering and Computing}  %%As listed by Grad School
-\advisor[]{Dr.}{Csilla Farkas}{Advisor} %%% Be sure the 
-\readera[]{Dr.}{Shankar M. Banik}{Co-Advisor}     %%% third field is 
-\readerb[]{Dr.}{John R. Rose}{CSE}         %%% the one used in 
-\readerc[]{Dr.}{Lannan Luo}{CSE} %%% your department.
-\readerd[]{Dr.}{Jorge Crichigno}{IIT}               %%% Only use as many as
+\advisor[]{Dr.}{Csilla Farkas}{Major Professor} %%% Be sure the 
+\readera[]{Dr.}{Shankar M. Banik}{Committee Member}     %%% third field is 
+\readerb[]{Dr.}{John R. Rose}{Committee Member}         %%% the one used in 
+\readerc[]{Dr.}{Lannan Luo}{Committee Member} %%% your department.
+\readerd[]{Dr.}{Jorge Crichigno}{Committee Member}               %%% Only use as many as
 %%% If you have just two readers, for example, leave out \readerc and
 %%% \readerd
 %%%
@@ -182,7 +181,8 @@ The Citadel Graduate College 2014\\ %% The \\ on this line is
 %%% are not used under the honors option.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\dean[]{Cheryl Addy}{Dean of The Graduate School}   %% The Dean of the Graduate School
+\dean[]{Tracey L. Weldon}{Interim Vice Provost and Dean of the
+Graduate School}   %% The Dean of the Graduate School
                    %% BE SURE TO CHECK THE NAME OF THE
                    %%PERSON CURRENTLY HOLDING THIS POSITION	
 		   %% and the correct title.		             		
@@ -204,8 +204,7 @@ The Citadel Graduate College 2014\\ %% The \\ on this line is
                      %% For Honors College theses use
                      %% \honorsabstract{}
 %% Abbreviations
-% \listofabbreviations{chapters/abbreviations}
-\input{chapters/abbreviations}
+\listofabbreviations{chapters/abbreviations}
 
 % \summary{chapters/precis}     %% This command calls  precis.tex
                      %% It is only available with the honors
@@ -243,8 +242,6 @@ The Citadel Graduate College 2014\\ %% The \\ on this line is
 
 
 \begin{document}
-\printglossary[title=Abbreviations, toctitle=List of Abbreviations]
-
 \include{chapters/1__Introduction/main}    %% Calls Introduction.tex
                           %% Honors theses are required to 
                           %% have an Introduction.  For

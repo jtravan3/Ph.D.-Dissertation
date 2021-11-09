@@ -1,12 +1,13 @@
 \subsection{Lock Compatibility Among Transaction Categories}
 \label{pbs:lock_compatibility}
-There are two main lock types in a \gls{dbms}: shared read-locks and exclusive write-locks. Shared read-locks allow read access to \textit{R}, to be accessed by multiple parties. Resource \textit{R} can be a relation, tuple, or even an individual cell in a database, depending on the lock granularity set by the system. Exclusive write-locks only allow write access to the particular resource for the transaction that holds the lock. At any point in time, in the execution of multiple concurrent transactions, there is only one exclusive write-lock per resource, and only the lock holder can manipulate the data.
+There are two main lock types in a \ac{DBMS}: shared read-locks and exclusive write-locks. Shared read-locks allow read access to \textit{R}, to be accessed by multiple parties. Resource \textit{R} can be a relation, tuple, or even an individual cell in a database, depending on the lock granularity set by the system. Exclusive write-locks only allow write access to the particular resource for the transaction that holds the lock. At any point in time, in the execution of multiple concurrent transactions, there is only one exclusive write-lock per resource, and only the lock holder can manipulate the data.
 
 %Based on Fekete's pre-emptive priority scheduling
-To improve the performance of the system during the execution of concurrent transactions, we force lower priority transactional categories to release locks to higher priority categories. The system leverages the existing two-phase locking (\gls{2pl}) protocol in order to obtain locks with the addition of prediction-based metrics. This allows transactions with a better reputation to execute more quickly, while transactions with a poor reputation do not create a bottleneck for later transactions. In order to successfully prioritize transactions, an objective priority was placed on each of the four transactional categories mentioned above. Definition \ref{cat_dominance} and Table \ref{tbl:priority} displays the transaction category dominance.
+To improve the performance of the system during the execution of concurrent transactions, we force lower priority transactional categories to release locks to higher priority categories. The system leverages the existing two-phase locking (\ac{2PL}) protocol in order to obtain locks with the addition of prediction-based metrics. This allows transactions with a better reputation to execute more quickly, while transactions with a poor reputation do not create a bottleneck for later transactions. In order to successfully prioritize transactions, an objective priority was placed on each of the four transactional categories mentioned above. Definition \ref{cat_dominance} and Table \ref{tbl:priority} displays the transaction category dominance.
 
 \begin{table}[h]
-\captionsetup{justification=centering}
+\caption{Read-Lock Compatibility} % title of the Figure
+\captionsetup{justification=centering,position=above}
 \centering
 \begin{tabular}{l|c|c|c|c|c|c|}
 
@@ -26,13 +27,14 @@ To improve the performance of the system during the execution of concurrent tran
 \multicolumn{1}{|l||}{\textbf{$LCLE_{w}$}} &\textbf{-}    & \textbf{-}    & \textbf{-}     & \textbf{-}    \\ \hline           
 \end{tabular}
 
-\caption{Read-Lock Compatibility} % title of the Figure
+
 \label{tbl:read_lock_compatibility} % label to refer figure in text
 
 \end{table}
 
 
 \begin{table}[h]
+\caption{Write-Lock Compatibility} % title of the Figure
 \captionsetup{justification=centering}
 \centering
 \begin{tabular}{l|c|c|c|c|c|c|}
@@ -53,7 +55,6 @@ To improve the performance of the system during the execution of concurrent tran
 \multicolumn{1}{|l||}{\textbf{$LCLE_{w}$}} &\textbf{-}    & \textbf{-}    & \textbf{-}     & \textbf{-}    \\ \hline           
 \end{tabular}
 
-\caption{Write-Lock Compatibility} % title of the Figure
 \label{tbl:write_lock_compatibility} % label to refer figure in text
 
 \end{table}

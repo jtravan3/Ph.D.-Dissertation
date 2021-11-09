@@ -41,7 +41,7 @@ If the action obtained is a \textit{decline action} (l. \ref{alg2:decline_action
 
 % In each of the three action cases, if the operation requesting a lock is a read operation then an entry in the RCDS is added. This ensures that other executions that are occurring concurrently obtain the most accurate information for comparisons within the compatibility matrices. After the operation has completed processing from the DBMS, the entry in the RCDS is removed.
 
-Before each execution of any operation, an entry will be inserted into the \gls{rcds} with the resource and the category of the transaction. After each execution, the corresponding entry will be removed from the \gls{rcds}. This ensures the most appropriate action is always performed.
+Before each execution of any operation, an entry will be inserted into the \ac{RCDS} with the resource and the category of the transaction. After each execution, the corresponding entry will be removed from the \ac{RCDS}. This ensures the most appropriate action is always performed.
 
 After all operations have completed processing, the transactional metadata for all operation executions is retained. This information is then used to populate the Transactional Metrics (l. \ref{alg2:update_metrics}). 
 
