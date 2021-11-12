@@ -979,7 +979,8 @@ Deparment of Mathematics}{\th@ugradsig}
 \ifthenelse{\boolean{@makeLoF}}
 {%
 \typeout{Making LoF}
-\clearpage\SingleSpacing\listoffigures\clearpage
+\clearpage\SingleSpacing\listoffigures
+% \clearpage
 }
 {\typeout{Skipping LoF}}
 }
@@ -1001,8 +1002,9 @@ Deparment of Mathematics}{\th@ugradsig}
 }
 \newcommand{\th@LoAbbrevpage}{
 	\if@makeLoAbbrev \typeout{Making List of Abbreviations}
-	    \clearpage\thispagestyle{plain}
-	    \chapter{List of Abbreviations}
+	   % \clearpage
+	    \thispagestyle{plain}
+	   % \chapter{List of Abbreviations}
 	    {\DoubleSpacing
 	    \th@loabbrevStash}
 	\fi

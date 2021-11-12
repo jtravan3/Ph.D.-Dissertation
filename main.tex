@@ -31,7 +31,10 @@
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage{hhline}
-\usepackage[printonlyused,withpage]{acronym}
+\input{chapters/abbreviation-preamble}
+\usepackage[all]{nowidow}
+\setnowidow
+\setnoclub
 
 %%%%%%% FOR EDITING ONLY. REMOVE WHEN DONE %%%%%%%%%
 %\openup 2em
@@ -91,7 +94,6 @@ webservice/.style={
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliography{references/references}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% The lines above specify a BibTeX style which controls 

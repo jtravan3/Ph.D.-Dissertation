@@ -40,7 +40,7 @@ In order to establish levels, a system of categories was put in place base on th
 
 The second categorization that the levels are built on is based solely on the outcome of the transaction. These attributes are \textit{high commit (HC)} and \textit{low commit (LC)}, which are much more simple to define. A transaction with a \textit{HC} attribute has committed successfully over 50\% of executions (upper 50\% of all transactions). A transaction with an \textit{LC} attribute has failed over 50\% of its executions (lower 50\% of all transactions). This categorization correlates directly with the commit rate defined (see Definition \ref{cmt_rate}).
 
-With these two categorizations and two attributes, a four-level system was devised in order to select appropriate lock types. The four categories devised are \textit{high commit-high efficiency (\ac{HCHE})}, \textit{high commit-low efficiency (\ac{HCLE})}, \textit{low commit-high efficiency (\ac{LCHE})}, and \textit{low commit-low efficiency (\ac{LCLE})}. Depending on the level in which the transaction has been placed, different lock types will be granted in order to perform concurrency control.}
+With these two categorizations and two attributes, a four-level system was devised in order to select appropriate lock types. The four categories devised are \textit{high commit-high efficiency (\gls{hche})}, \textit{high commit-low efficiency (\gls{hcle})}, \textit{low commit-high efficiency (\gls{lche})}, and \textit{low commit-low efficiency (\gls{lcle})}. Depending on the level in which the transaction has been placed, different lock types will be granted in order to perform concurrency control.}
 
 \end{definition}
 
